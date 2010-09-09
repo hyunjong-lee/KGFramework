@@ -1,0 +1,21 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+PROJECT(KGCommon)
+
+SET(KGCOMMON_SOURCES 
+
+KGCommonPCH.cpp
+AbstractEvent.cpp
+Character.cpp
+KGCommonApi.cpp
+)
+
+set(KGCOMMON_HEADERS
+
+KGCommonPCH.h
+Character.h
+Macro.h
+KGCommonApi.h
+)
+
+ADD_DEFINITIONS(-D_USRDLL -DKGCOMMON_EXPORTS)
+ADD_LIBRARY(KGCommon SHARED ${KGCOMMON_SOURCES})

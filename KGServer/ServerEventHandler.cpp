@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "KGServerPCH.h"
 #include "ServerEventHandler.h"
 
 CServerEventHandler::CServerEventHandler(void)

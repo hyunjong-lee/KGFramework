@@ -3,196 +3,194 @@
 
 #include "KGClientPCH.h"
 #include "KGClient.h"
+#include "KGCommonApi.h"
+#include "ft2build.h"
+#include FT_FREETYPE_H
 
-#define MAX_LOADSTRING 100
+/*
+ * BORDER_WIDTH:
+ *
+ * Thickness of FL_UP_BOX and FL_DOWN_BOX.  Current 1,2, and 3 are
+ * supported.  3 is the historic FLTK look.  2 looks more like Microsoft
+ * Windows, KDE, and Qt, and is the default when building for Windows.
+ * 1 is a plausible future evolution...  Note that this may be simulated
+ * at runtime by redefining the boxtypes using Fl::set_boxtype().
+ */
 
-// Global Variables:
-HINSTANCE hInst;								// current instance
-TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
-TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
+#define BORDER_WIDTH 2
 
-// Forward declarations of functions included in this code module:
-ATOM				MyRegisterClass(HINSTANCE hInstance);
-BOOL				InitInstance(HINSTANCE, int);
-LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
-INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
+/*
+ * HAVE_GL:
+ *
+ * Do you have OpenGL? Set this to 0 if you don't have or plan to use
+ * OpenGL, and FLTK will be smaller.
+ */
 
-int APIENTRY _tWinMain(HINSTANCE hInstance,
-                     HINSTANCE hPrevInstance,
-                     LPTSTR    lpCmdLine,
-                     int       nCmdShow)
+#define HAVE_GL 1
+
+/*
+ * HAVE_GL_GLU_H:
+ *
+ * Do you have the OpenGL Utility Library header file?
+ * (many broken Mesa RPMs do not...)
+ */
+
+#define HAVE_GL_GLU_H 1
+
+/*
+ * USE_COLORMAP:
+ *
+ * Setting this to zero will save a good deal of code (especially for
+ * fl_draw_image), but FLTK will only work on TrueColor visuals.
+ */
+
+#define USE_COLORMAP 1
+
+/*
+ * HAVE_XDBE:
+ *
+ * Do we have the X double-buffer extension?
+ */
+
+#define HAVE_XDBE 0
+
+/*
+ * USE_XDBE:
+ *
+ * Actually try to use the double-buffer extension?  Set this to zero
+ * disable use of XDBE without breaking the list_visuals program.
+ */
+
+#define USE_XDBE HAVE_XDBE
+
+/*
+ * HAVE_OVERLAY:
+ *
+ * Use the X overlay extension?  FLTK will try to use an overlay
+ * visual for Fl_Overlay_Window, the Gl_Window overlay, and for the
+ * menus.  Setting this to zero will remove a substantial amount of
+ * code from FLTK.  Overlays have only been tested on SGI servers!
+ */
+
+#define HAVE_OVERLAY 0
+
+/*
+ * HAVE_GL_OVERLAY:
+ *
+ * It is possible your GL has an overlay even if X does not.  If so,
+ * set this to 1.
+ */
+
+#define HAVE_GL_OVERLAY 1
+
+/*
+ * WORDS_BIGENDIAN:
+ *
+ * Byte order of your machine: 1 = big-endian, 0 = little-endian.
+ */
+
+#define WORDS_BIGENDIAN 0
+
+/*
+ * U16, U32, U64:
+ *
+ * Types used by fl_draw_image.  One of U32 or U64 must be defined.
+ * U16 is optional but FLTK will work better with it!
+ */
+
+#define U16 unsigned short
+#define U32 unsigned
+#undef U64
+
+/*
+ * HAVE_DIRENT_H, HAVE_SYS_NDIR_H, HAVE_SYS_DIR_H, HAVE_NDIR_H, HAVE_SCANDIR:
+ *
+ * Where is <dirent.h> (used only by fl_file_chooser and scandir).
+ */
+
+/*#undef HAVE_DIRENT_H */
+/*#undef HAVE_SYS_NDIR_H */
+/*#undef HAVE_SYS_DIR_H */
+/*#undef HAVE_NDIR_H */
+/*#undef HAVE_SCANDIR */
+
+/*
+ * Possibly missing sprintf-style functions:
+ */
+
+#undef HAVE_VSNPRINTF
+#undef HAVE_SNPRINTF
+
+/*
+ * String functions...
+ */
+
+#define HAVE_STRCASECMP	1
+/*#undef HAVE_STRLCAT*/
+/*#undef HAVE_STRLCPY*/
+
+/*
+ * Do we have POSIX locale support?
+ */
+
+#define HAVE_LOCALE_H 1
+#define HAVE_LOCALECONV 1
+
+/*
+ * HAVE_POLL:
+ *
+ * Use poll() if we don't have select().
+ */
+
+#define HAVE_POLL 0
+
+/*
+ * Do we have various image libraries?
+ */
+
+#define HAVE_LIBPNG
+#define HAVE_LIBZ
+#define HAVE_LIBJPEG
+
+/*
+ * Which header file do we include for libpng?
+ */
+
+#define HAVE_PNG_H
+#undef HAVE_LIBPNG_PNG_H
+
+/*
+ * Do we have the png_xyz() functions?
+ */
+
+#define HAVE_PNG_GET_VALID
+#define HAVE_PNG_SET_TRNS_TO_ALPHA
+
+#include <FL/Fl.H>
+#include <FL/Fl_Window.H>
+#include <FL/Fl_Box.H>
+#include <FL/Fl_Hor_Slider.H>
+#include <FL/Fl_Toggle_Button.H>
+#include <FL/Fl_Light_Button.H>
+#include <FL/Fl_Select_Browser.H>
+#include <FL/Fl_Check_Browser.H>
+#include <FL/Fl_Gl_Window.H>
+#include <FL/gl.h>
+#include <FL/math.h>
+#include <FL/fl_draw.H>
+
+int main(int argc, char *argv[])
 {
-	UNREFERENCED_PARAMETER(hPrevInstance);
-	UNREFERENCED_PARAMETER(lpCmdLine);
-
- 	// TODO: Place code here.
-	MSG msg;
-	HACCEL hAccelTable;
-
-	// Initialize global strings
-	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-	LoadString(hInstance, IDC_KGCLIENT, szWindowClass, MAX_LOADSTRING);
-	MyRegisterClass(hInstance);
-
-	// Perform application initialization:
-	if (!InitInstance (hInstance, nCmdShow))
-	{
-		return FALSE;
-	}
-
-	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_KGCLIENT));
-
-	// Main message loop:
-	while (GetMessage(&msg, NULL, 0, 0))
-	{
-		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-	}
-
-	return (int) msg.wParam;
-}
-
-
-
-//
-//  FUNCTION: MyRegisterClass()
-//
-//  PURPOSE: Registers the window class.
-//
-//  COMMENTS:
-//
-//    This function and its usage are only necessary if you want this code
-//    to be compatible with Win32 systems prior to the 'RegisterClassEx'
-//    function that was added to Windows 95. It is important to call this function
-//    so that the application will get 'well formed' small icons associated
-//    with it.
-//
-ATOM MyRegisterClass(HINSTANCE hInstance)
-{
-	WNDCLASSEX wcex;
-
-	wcex.cbSize = sizeof(WNDCLASSEX);
-
-	wcex.style			= CS_HREDRAW | CS_VREDRAW;
-	wcex.lpfnWndProc	= WndProc;
-	wcex.cbClsExtra		= 0;
-	wcex.cbWndExtra		= 0;
-	wcex.hInstance		= hInstance;
-	wcex.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_KGCLIENT));
-	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
-	wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
-	wcex.lpszMenuName	= MAKEINTRESOURCE(IDC_KGCLIENT);
-	wcex.lpszClassName	= szWindowClass;
-	wcex.hIconSm		= LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
-
-	return RegisterClassEx(&wcex);
-}
-
-//
-//   FUNCTION: InitInstance(HINSTANCE, int)
-//
-//   PURPOSE: Saves instance handle and creates main window
-//
-//   COMMENTS:
-//
-//        In this function, we save the instance handle in a global variable and
-//        create and display the main program window.
-//
-BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
-{
-   HWND hWnd;
-
-   hInst = hInstance; // Store instance handle in our global variable
-
-   hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
-
-   if (!hWnd)
-   {
-      return FALSE;
-   }
-
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
-
-   return TRUE;
-}
-
-//
-//  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  PURPOSE:  Processes messages for the main window.
-//
-//  WM_COMMAND	- process the application menu
-//  WM_PAINT	- Paint the main window
-//  WM_DESTROY	- post a quit message and return
-//
-//
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	int wmId, wmEvent;
-	PAINTSTRUCT ps;
-	HDC hdc;
-
-	CCharacter character;
-	TCHAR txt[128];
-	RECT r = { 10, 10, 150, 150 };
-
-	switch (message)
-	{
-	case WM_COMMAND:
-		wmId    = LOWORD(wParam);
-		wmEvent = HIWORD(wParam);
-		// Parse the menu selections:
-		switch (wmId)
-		{
-		case IDM_ABOUT:
-			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-			break;
-		case IDM_EXIT:
-			DestroyWindow(hWnd);
-			break;
-		default:
-			return DefWindowProc(hWnd, message, wParam, lParam);
-		}
-		break;
-	case WM_PAINT:
-		hdc = BeginPaint(hWnd, &ps);
-		Ellipse(hdc, 20, 20, 60, 60);
-		_stprintf_s(txt, sizeof(txt)/sizeof(TCHAR), _T("Returned:%d"), character.check());
-		
-		DrawText(hdc, txt, _tcslen(txt), &r, DT_CENTER);
-		
-		EndPaint(hWnd, &ps);
-		break;
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-	default:
-		return DefWindowProc(hWnd, message, wParam, lParam);
-	}
-	return 0;
-}
-
-// Message handler for about box.
-INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	UNREFERENCED_PARAMETER(lParam);
-	switch (message)
-	{
-	case WM_INITDIALOG:
-		return (INT_PTR)TRUE;
-
-	case WM_COMMAND:
-		if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-		{
-			EndDialog(hDlg, LOWORD(wParam));
-			return (INT_PTR)TRUE;
-		}
-		break;
-	}
-	return (INT_PTR)FALSE;
+  std::string verStr = KGCommonVersionString();
+  std::string str = std::string("KGCommon ") + verStr;
+  Fl_Window *window = new Fl_Window(300,180);
+  Fl_Box *box = new Fl_Box(20, 40, 260, 100, str.c_str());
+  box->box(FL_UP_BOX);
+  box->labelsize(36);
+  box->labelfont(FL_BOLD+FL_ITALIC);
+  box->labeltype(FL_SHADOW_LABEL);
+  window->end();
+  window->show(argc, argv);
+  return Fl::run();
+  return 0;
 }
