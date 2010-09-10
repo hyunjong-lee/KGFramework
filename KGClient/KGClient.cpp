@@ -4,9 +4,10 @@
 #include "KGClientPCH.h"
 #include "KGClient.h"
 #include "KGCommonApi.h"
+#ifndef WIN32
 #include "ft2build.h"
 #include FT_FREETYPE_H
-
+#endif
 /*
  * BORDER_WIDTH:
  *
@@ -182,7 +183,8 @@
 int main(int argc, char *argv[])
 {
   std::string verStr = KGCommonVersionString();
-  std::string str = std::string("KGCommon ") + verStr;
+  std::string str("KGCommon ");
+  str += verStr;
   Fl_Window *window = new Fl_Window(300,180);
   Fl_Box *box = new Fl_Box(20, 40, 260, 100, str.c_str());
   box->box(FL_UP_BOX);
