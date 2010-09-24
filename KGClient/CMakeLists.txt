@@ -8,6 +8,7 @@ KGClient.cpp
 ClientEventFactory.cpp
 ClientEventDispatcher.cpp
 ClientEventHandler.cpp
+KG2DRenderer.cpp
 )
 
 set(KGCLIENT_HEADERS
@@ -17,6 +18,7 @@ KGClient.h
 ClientEventFactory.h
 ClientEventDispatcher.h
 ClientEventHandler.h
+KG2DRenderer.h
 )
 
 INCLUDE_DIRECTORIES(../KGCommon)
