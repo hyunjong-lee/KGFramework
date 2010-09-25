@@ -33,7 +33,7 @@ int KG2DRenderer::handle( int event )
         std::cout << "Down" << std::endl;
         return 1;
       default:
-        printf("%c\n", key);
+	std::cout << *reinterpret_cast<char*>(&key) << std::endl;
         return 1; // "eat" all other keys !
     }
   case FL_FOCUS:
