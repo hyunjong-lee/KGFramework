@@ -7,5 +7,5 @@ class KG2DRenderer : public Fl_Widget
 
  protected:
   void draw();
-  int handle(int event);
+  //int handle(int event);
 };

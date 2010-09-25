@@ -6,13 +6,16 @@
 #include "KGCommonApi.h"
 #include "KGFltk.h"
 #include "KG2DRenderer.h"
+#include "KGCanvas.h"
+#include <iostream>
+
 
 int main(int argc, char *argv[])
 {
   std::string verStr = KGCommonVersionString();
   std::string str("Built with KGCommon ");
   str += verStr;
-  Fl_Window *window = new Fl_Window(600,600);
+  KGCanvas *window = new KGCanvas(600,600);
   Fl_Box *box = new Fl_Box(20, 20, 560, 20, str.c_str());
   box->box(FL_UP_BOX);
   box->labelsize(14);
@@ -27,5 +30,5 @@ int main(int argc, char *argv[])
   window->end();
   window->show(argc, argv);
   return Fl::run();
-  return 0;
+  return 0;  
 }
