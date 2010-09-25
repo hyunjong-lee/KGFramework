@@ -18,6 +18,9 @@ ServerEventDispatcher.h
 ServerEventHandler.h
 )
 
+
+SET(CMAKE_OSX_ARCHITECTURES i386)
+
 INCLUDE_DIRECTORIES(../KGCommon)
 
 ADD_EXECUTABLE(KGServer ${KGSERVER_SOURCES})
