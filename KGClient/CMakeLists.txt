@@ -5,6 +5,7 @@ SET(KGCLIENT_SOURCES
 
 KGClientPCH.cpp
 KGClient.cpp
+KGCanvas.cpp
 ClientEventFactory.cpp
 ClientEventDispatcher.cpp
 ClientEventHandler.cpp
@@ -15,6 +16,7 @@ set(KGCLIENT_HEADERS
 
 KGClientPCH.h
 KGClient.h
+KGCanvas.h
 ClientEventFactory.h
 ClientEventDispatcher.h
 ClientEventHandler.h
