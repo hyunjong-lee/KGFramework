@@ -21,6 +21,10 @@ ClientEventHandler.h
 KG2DRenderer.h
 )
 
+
+SET(CMAKE_OSX_ARCHITECTURES i386)
+
+
 INCLUDE_DIRECTORIES(../KGCommon)
 INCLUDE_DIRECTORIES(/usr/include/freetype2)
 
