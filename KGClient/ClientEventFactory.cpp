@@ -1,10 +1,10 @@
 #include "KGClientPCH.h"
 #include "ClientEventFactory.h"
 
-CClientEventFactory::CClientEventFactory(void)
+KGClientEventFactory::KGClientEventFactory(void)
 {
 }
 
-CClientEventFactory::~CClientEventFactory(void)
+KGClientEventFactory::~KGClientEventFactory(void)
 {
 }

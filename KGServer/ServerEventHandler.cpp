@@ -1,10 +1,10 @@
 #include "KGServerPCH.h"
 #include "ServerEventHandler.h"
 
-CServerEventHandler::CServerEventHandler(void)
+ServerEventHandler::ServerEventHandler(void)
 {
 }
 
-CServerEventHandler::~CServerEventHandler(void)
+ServerEventHandler::~ServerEventHandler(void)
 {
 }

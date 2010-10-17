@@ -1,10 +1,10 @@
 #pragma once
 
-class KGCOMMON_API CCharacter
+class KGCOMMON_API Character
 {
 public:
-	CCharacter(void);
-	~CCharacter(void);
+	Character(void);
+	~Character(void);
 
 	int check();
 };

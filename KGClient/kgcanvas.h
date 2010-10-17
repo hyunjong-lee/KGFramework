@@ -4,10 +4,10 @@
 #include "KGFltk.h"
 #include "clienteventhandler.h"
 
-class KGCanvas : public Fl_Window
+class Canvas : public Fl_Window
 {
 public:
-  KGCanvas(int w, int h, const char *label = 0);
+  Canvas(int w, int h, const char *label = 0);
 
   /**
    * This method listens all events in KGClient.
@@ -17,7 +17,7 @@ public:
    *
    */
   int handle(int event);
-  CClientEventHandler* get_event_handler(void);
+  ClientEventHandler* get_event_handler(void);
 
 };
 

@@ -1,10 +1,10 @@
 #pragma once
 
-class KGCOMMON_API CAbstractEvent
+class KGCOMMON_API AbstractEvent
 {
 public:
-	CAbstractEvent(void);
-	~CAbstractEvent(void);
+	AbstractEvent(void);
+	~AbstractEvent(void);
 
 public:
 	//define constants

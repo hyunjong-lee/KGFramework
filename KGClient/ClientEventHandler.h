@@ -1,10 +1,10 @@
 #pragma once
 
-class CClientEventHandler
+class ClientEventHandler
 {
 public:
-	CClientEventHandler(void);
-	~CClientEventHandler(void);
+	ClientEventHandler(void);
+	~ClientEventHandler(void);
 
   int handle(int event);
 };

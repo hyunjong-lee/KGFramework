@@ -2,15 +2,15 @@
 #include "KGFltk.h"
 #include "ClientEventHandler.h"
 
-CClientEventHandler::CClientEventHandler(void)
+ClientEventHandler::ClientEventHandler(void)
 {
 }
 
-CClientEventHandler::~CClientEventHandler(void)
+ClientEventHandler::~ClientEventHandler(void)
 {
 }
 
-int CClientEventHandler::handle( int event )
+int ClientEventHandler::handle( int event )
 {
   switch(event)
   {

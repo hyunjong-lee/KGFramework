@@ -1,8 +1,8 @@
 #pragma once
 
-class CServerEventDispatcher
+class ServerEventDispatcher
 {
 public:
-	CServerEventDispatcher(void);
-	~CServerEventDispatcher(void);
+	ServerEventDispatcher(void);
+	~ServerEventDispatcher(void);
 };

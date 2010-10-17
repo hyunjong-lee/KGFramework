@@ -1,10 +1,10 @@
 #include "KGServerPCH.h"
 #include "ServerEventDispatcher.h"
 
-CServerEventDispatcher::CServerEventDispatcher(void)
+ServerEventDispatcher::ServerEventDispatcher(void)
 {
 }
 
-CServerEventDispatcher::~CServerEventDispatcher(void)
+ServerEventDispatcher::~ServerEventDispatcher(void)
 {
 }

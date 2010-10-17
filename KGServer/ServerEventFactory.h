@@ -1,8 +1,8 @@
 #pragma once
 
-class CServerEventFactory
+class ServerEventFactory
 {
 public:
-	CServerEventFactory(void);
-	~CServerEventFactory(void);
+	ServerEventFactory(void);
+	~ServerEventFactory(void);
 };

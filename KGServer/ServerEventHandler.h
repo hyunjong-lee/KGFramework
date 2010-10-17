@@ -1,8 +1,8 @@
 #pragma once
 
-class CServerEventHandler
+class ServerEventHandler
 {
 public:
-	CServerEventHandler(void);
-	~CServerEventHandler(void);
+	ServerEventHandler(void);
+	~ServerEventHandler(void);
 };

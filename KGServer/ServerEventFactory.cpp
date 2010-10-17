@@ -1,10 +1,10 @@
 #include "KGServerPCH.h"
 #include "ServerEventFactory.h"
 
-CServerEventFactory::CServerEventFactory(void)
+ServerEventFactory::ServerEventFactory(void)
 {
 }
 
-CServerEventFactory::~CServerEventFactory(void)
+ServerEventFactory::~ServerEventFactory(void)
 {
 }

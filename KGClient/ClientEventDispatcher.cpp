@@ -1,10 +1,10 @@
 #include "KGClientPCH.h"
 #include "ClientEventDispatcher.h"
 
-CClientEventDispatcher::CClientEventDispatcher(void)
+ClientEventDispatcher::ClientEventDispatcher(void)
 {
 }
 
-CClientEventDispatcher::~CClientEventDispatcher(void)
+ClientEventDispatcher::~ClientEventDispatcher(void)
 {
 }

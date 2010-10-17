@@ -1,15 +1,15 @@
 #include "KGCommonPCH.h"
 #include "Character.h"
 
-CCharacter::CCharacter(void)
+Character::Character(void)
 {
 }
 
-CCharacter::~CCharacter(void)
+Character::~Character(void)
 {
 }
 
-int CCharacter::check()
+int Character::check()
 {
 	return 1234;
 }
