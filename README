@@ -2,15 +2,11 @@
 README
 ===================
 
-TEST FILE
-I Added my sentence here!
-What happens?
-
-
 THIRD-PARTY DEPENDENCIES (Windows)
  - Visual Studio 2008
  - Cmake 2.8
  - fltk 1.1.x
+ - Boost 1.44 (or above version)
 
 
 HOW TO BUILD (Windows)
