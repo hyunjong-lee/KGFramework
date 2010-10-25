@@ -1,7 +1,7 @@
 #pragma once
 
-// ¹ØÀÇ ÇÔ¼ö°¡ ¿¡·¯³² - AbstractEvent ¿¡ ÀÇÇØ¼­
-// µû¶ó¼­ Çì´õÆÄÀÏÀ» Ãß°¡ÇÏ¿´´Âµ¥ °ú¿¬ ¿ÇÀº ÀÏÀÎ°¡? - ÀÌ·± °Í¿¡ ´ëÇÑ °í¹ÎÀ» ÇØº»ÀûÀÌ ¾øÀ½
+// ë°‘ì˜ í•¨ìˆ˜ê°€ ì—ëŸ¬ë‚¨ - AbstractEvent ì— ì˜í•´ì„œ
+// ë”°ë¼ì„œ í—¤ë”íŒŒì¼ì„ ì¶”ê°€í•˜ì˜€ëŠ”ë° ê³¼ì—° ì˜³ì€ ì¼ì¸ê°€? - ì´ëŸ° ê²ƒì— ëŒ€í•œ ê³ ë¯¼ì„ í•´ë³¸ì ì´ ì—†ìŒ
 #include "clientpch.h"
 
 class ClientEventFactory
