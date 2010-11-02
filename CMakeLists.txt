@@ -3,15 +3,15 @@ PROJECT(KGF)
 
 # ---------- Setup output Directories -------------------------
 SET (CMAKE_LIBRARY_OUTPUT_DIRECTORY
-   ${PROJECT_BINARY_DIR}/Bin )
+   ${PROJECT_BINARY_DIR}/bin )
 
 # --------- Setup the Executable output Directory -------------
 SET (CMAKE_RUNTIME_OUTPUT_DIRECTORY
-   ${PROJECT_BINARY_DIR}/Bin )
+   ${PROJECT_BINARY_DIR}/bin )
 
 # --------- Setup the Executable output Directory -------------
 SET (CMAKE_ARCHIVE_OUTPUT_DIRECTORY
-   ${PROJECT_BINARY_DIR}/Bin )
+   ${PROJECT_BINARY_DIR}/bin )
 
 
 ADD_SUBDIRECTORY(common)
