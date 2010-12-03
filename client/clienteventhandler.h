@@ -7,4 +7,6 @@ public:
 	~ClientEventHandler(void);
 
   int handle(int event);
+ private:
+
 };

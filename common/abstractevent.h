@@ -3,8 +3,9 @@
 class KGCOMMON_API AbstractEvent
 {
 public:
-	AbstractEvent(void);
-	~AbstractEvent(void);
+  AbstractEvent();
+  AbstractEvent(const std::string &type, int size);
+virtual	~AbstractEvent(void);
 
 public:
 	//define constants
@@ -15,7 +16,7 @@ public:
 	// define variables
 
 	// define functions
-	inline std::string	GetType() { return m_type;	}
+	inline const std::string&	GetType() { return m_type;	}
 	inline int			GetSize() { return m_size;	}
 	
 private:

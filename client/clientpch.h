@@ -46,6 +46,6 @@
 #include <GL/glu.h>
 #endif
 #include <assert.h>
-// TODO: reference additional headers your program requires here
-
+#include <vector>
+#include <boost/shared_ptr.hpp>
 #include "commonapi.h"

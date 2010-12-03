@@ -7,6 +7,7 @@
 #include "fltk.h"
 #include "renderer.h"
 #include "canvas.h"
+#include "car.h"
 
 const static int win_width = 600;
 const static int win_height = 600;
@@ -41,5 +42,8 @@ int main(int argc, char *argv[])
   //box->labeltype(FL_SHADOW_LABEL);
   window->end();
   window->show(argc, argv);
-  return Fl::run();
+
+
+  boost::shared_ptr<Car> car(new Car());
+  return  Fl::run();
 }

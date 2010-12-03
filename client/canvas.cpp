@@ -2,7 +2,8 @@
 
 
 Canvas::Canvas( int w, int h, const char *label /*= 0*/ )
-: Fl_Window(w, h, label) {
+: Fl_Window(w, h, label)
+{
 }
 
 int Canvas::handle( int event ) {

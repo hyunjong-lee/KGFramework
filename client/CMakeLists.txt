@@ -9,6 +9,7 @@ clienteventfactory.cpp
 clienteventdispatcher.cpp
 clienteventhandler.cpp
 renderer.cpp
+car.cpp
 )
 
 set(CLIENT_HEADERS
@@ -20,6 +21,7 @@ clienteventfactory.h
 clienteventdispatcher.h
 clienteventhandler.h
 renderer.h
+car.cpp
 )
 
 

@@ -1,8 +1,12 @@
 #pragma once
 
-// 밑의 함수가 에러남 - AbstractEvent 에 의해서
-// 따라서 헤더파일을 추가하였는데 과연 옳은 일인가? - 이런 것에 대한 고민을 해본적이 없음
-#include "clientpch.h"
+enum CarMoveDirection {
+  CMD_UNKNOWN,
+  CMD_UP,
+  CMD_DOWN,
+  CMD_LEFT,
+  CMD_RIGHT,
+};
 
 class ClientEventFactory
 {
@@ -16,12 +20,18 @@ public:
 	// define variables
 
 	// define functions
-	AbstractEvent MakeEvent(/* What parameters are in here? */);
-	
+	static boost::shared_ptr<AbstractEvent> MakeCarEvent(CarMoveDirection cmd, double amount);
+	static boost::shared_ptr<AbstractEvent> MakeEvent(const std::string &type);
 private:
 	// define constants
 
 	// define variables
 
 	// define functions
+};
+
+struct CarMoveEvent : public AbstractEvent
+{
+  CarMoveDirection cmd;
+  double amount;
 };

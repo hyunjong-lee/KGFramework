@@ -1,11 +1,13 @@
 #pragma once
 
-class Renderer : public Fl_Gl_Window
+class Renderer : public Fl_Gl_Window, public AbstractEventListener, public Singleton<Renderer>
 {
  public:
   Renderer(int x, int y, int w, int h, const char *label = 0);
   ~Renderer();
   void init_renderer_independent_objects();
+  int handle(boost::shared_ptr<AbstractEvent>& ae);
+
  private:
   void draw();
   //int handle(int event);
@@ -16,5 +18,7 @@ class Renderer : public Fl_Gl_Window
   double up[3];
 
   GLuint ground_tex;
+  GLuint ground_tex2;
+  GLUquadric *quadric;
 };
 

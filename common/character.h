@@ -1,10 +1,12 @@
 #pragma once
 
-class KGCOMMON_API Character
+#include "actor.h"
+
+class KGCOMMON_API Character : public Actor
 {
 public:
 	Character(void);
-	~Character(void);
+	virtual ~Character(void);
 
 	int check();
 };

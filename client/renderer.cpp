@@ -1,6 +1,9 @@
 #include "clientpch.h"
 #include "fltk.h"
 #include "renderer.h"
+#include "car.h"
+
+IMPLEMENT_SINGLETON(Renderer);
 
 void substract_vector(double v[3], const double a[3], const double b[3])
 {
@@ -56,12 +59,10 @@ GLuint LoadTextureRAW( const char * filename, int wrap )
 		   wrap ? GL_REPEAT : GL_CLAMP );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,
 		   wrap ? GL_REPEAT : GL_CLAMP );
-  printf("aha..\n");
   assert(gluBuild2DMipmaps);
   // build our texture mipmaps
   gluBuild2DMipmaps( GL_TEXTURE_2D, 3, width, height,
 		     GL_RGB, GL_UNSIGNED_BYTE, data );
-  printf("oho\n");
   // free buffer
   free( data );
   return texture;
@@ -70,6 +71,7 @@ GLuint LoadTextureRAW( const char * filename, int wrap )
 Renderer::Renderer(int x, int y, int w, int h, const char *label)
 : Fl_Gl_Window(x, y, w, h, label)
 , ground_tex(0)
+, ground_tex2(0)
 {
   eye[0] = 0;
   eye[1] = -1;
@@ -86,10 +88,17 @@ Renderer::Renderer(int x, int y, int w, int h, const char *label)
 Renderer::~Renderer()
 {
   glDeleteTextures( 1, &ground_tex );
+  glDeleteTextures( 1, &ground_tex2 );
 }
 
 void Renderer::init_renderer_independent_objects()
 {
+}
+
+int Renderer::handle(boost::shared_ptr<AbstractEvent>& ae)
+{
+  if (strcmp(ae->GetType().c_str(), "redraw_renderer") == 0)
+    redraw();
 }
 
 void Renderer::draw()
@@ -98,7 +107,11 @@ void Renderer::draw()
   if (!run_once) {
     run_once = true;
     glEnable( GL_TEXTURE_2D );
-    ground_tex = LoadTextureRAW ("../resources/ground2.raw", 0);
+    ground_tex = LoadTextureRAW ("../resources/ground.raw", 0);
+    ground_tex2 = LoadTextureRAW ("../resources/ground2.raw", 0);
+    quadric = gluNewQuadric();			// Create A Pointer To The Quadric Object ( NEW )
+    gluQuadricNormals(quadric, GLU_SMOOTH);	// Create Smooth Normals ( NEW )
+    gluQuadricTexture(quadric, GL_TRUE);
   }
   // First time? init viewport, etc.
   if (!valid()) {
@@ -106,7 +119,7 @@ void Renderer::draw()
     glViewport(0,0,w(),h());
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45, w()/h(), 0.01, 100.0);
+    gluPerspective(45, (double)w()/h(), 0.01, 100.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(eye[0], eye[1], eye[2], center[0], center[1], center[2], up[0], up[1], up[2]);
@@ -125,12 +138,23 @@ void Renderer::draw()
     glVertex2f(multipliers[i][0] * quad_size/2, multipliers[i][1] * quad_size/2);
   }
   glEnd();
+
+  glPushMatrix();
+  const Car &car = Car::getSingleton();
+  glTranslated(car.get_pos()[0], car.get_pos()[1], car.get_pos()[2]);
+  glBindTexture( GL_TEXTURE_2D, ground_tex2 );
+  gluCylinder(quadric, 0.1, 0, 0.3, 32, 32);
+  glPopMatrix();
 }
 
 void Renderer::resize(int X,int Y,int W,int H) {
   Fl_Gl_Window::resize(X,Y,W,H);
-  glLoadIdentity();
   glViewport(0,0,W,H);
-  glOrtho(-W,W,-H,H,-1,1);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluPerspective(45, (double)W/H, 0.01, 100.0);
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+  gluLookAt(eye[0], eye[1], eye[2], center[0], center[1], center[2], up[0], up[1], up[2]);
   redraw();
 }
