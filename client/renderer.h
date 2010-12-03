@@ -1,11 +1,17 @@
 #pragma once
 
-class Renderer2D : public Fl_Widget
+class Renderer : public Fl_Gl_Window
 {
  public:
-  Renderer2D(int x, int y, int w, int h, const char *label = 0);
+  Renderer(int x, int y, int w, int h, const char *label = 0);
 
- protected:
+ private:
   void draw();
   //int handle(int event);
+  void resize(int,int,int,int);
+
+  double eye[3];
+  double center[3];
+  double up[3];
 };
+

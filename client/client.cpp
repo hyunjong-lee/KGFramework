@@ -7,28 +7,38 @@
 #include "fltk.h"
 #include "renderer.h"
 #include "canvas.h"
-#include <iostream>
 
+const static int win_width = 600;
+const static int win_height = 600;
+const static int margin = 10;
+const static int hor_box_height = 20;
+const static int widget_x_gap = 10;
+const static int widget_y_gap = 10;
+const static std::string version_str("Built with common " + std::string(CommonVersionString()));
 
 int main(int argc, char *argv[])
 {
-  std::string verStr = CommonVersionString();
-  std::string str("Built with common ");
-  str += verStr;
-  Canvas *window = new Canvas(600,600);
-  Fl_Box *box = new Fl_Box(20, 20, 560, 20, str.c_str());
+  Canvas *window = new Canvas(win_width, win_height);
+  int wx = margin, wy = margin;
+  int width = win_width - 2*margin;
+  int height = hor_box_height;
+  Fl_Box *box = new Fl_Box(wx, wy, width, height, version_str.c_str());
   box->box(FL_UP_BOX);
   box->labelsize(14);
   box->labelfont(FL_BOLD+FL_ITALIC);
+  wx += 0;
+  wy += height + widget_y_gap;
   //box->labeltype(FL_SHADOW_LABEL);
-  Fl_Box *box2 = new Fl_Box(20, 100, 560, 20, "ahaha");
+  Fl_Box *box2 = new Fl_Box(wx, wy, width, height, "ahaha");
   box2->box(FL_UP_BOX);
   box2->labelsize(14);
   box2->labelfont(FL_BOLD+FL_ITALIC);
-  Renderer2D *ren = new Renderer2D(20, 140, 560, 200);
+  wx += 0;
+  wy += height + widget_y_gap;
+  height = 300;
+  Renderer *ren = new Renderer(wx, wy, width, height);
   //box->labeltype(FL_SHADOW_LABEL);
   window->end();
   window->show(argc, argv);
   return Fl::run();
-  return 0;  
 }

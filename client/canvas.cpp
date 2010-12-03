@@ -6,7 +6,8 @@ Canvas::Canvas( int w, int h, const char *label /*= 0*/ )
 }
 
 int Canvas::handle( int event ) {
-  return get_event_handler()->handle(event);
+  if (!get_event_handler()->handle(event))
+    return Fl_Window::handle(event);
 }
 
 ClientEventHandler* Canvas::get_event_handler( void ) {

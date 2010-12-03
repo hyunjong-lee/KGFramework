@@ -37,7 +37,7 @@
 
 
 #include <iostream>
-
+#include <GL/glu.h>
 // TODO: reference additional headers your program requires here
 
 #include "commonapi.h"
