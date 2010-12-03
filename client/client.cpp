@@ -44,6 +44,6 @@ int main(int argc, char *argv[])
   window->show(argc, argv);
 
 
-  boost::shared_ptr<Car> car(new Car());
+  std::tr1::shared_ptr<Car> car(new Car());
   return  Fl::run();
 }

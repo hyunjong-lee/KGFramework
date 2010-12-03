@@ -11,7 +11,7 @@ Car::~Car()
 {
 }
 
-int Car::handle(boost::shared_ptr<AbstractEvent> &ae) {
+int Car::handle(std::tr1::shared_ptr<AbstractEvent> &ae) {
   CarMoveEvent *cme = dynamic_cast<CarMoveEvent *>(ae.get());
  if (cme) {
     if (cme->cmd == CMD_UP)

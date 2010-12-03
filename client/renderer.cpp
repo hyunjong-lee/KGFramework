@@ -95,7 +95,7 @@ void Renderer::init_renderer_independent_objects()
 {
 }
 
-int Renderer::handle(boost::shared_ptr<AbstractEvent>& ae)
+int Renderer::handle(std::tr1::shared_ptr<AbstractEvent>& ae)
 {
   if (strcmp(ae->GetType().c_str(), "redraw_renderer") == 0)
     redraw();

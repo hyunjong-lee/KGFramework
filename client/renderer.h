@@ -6,7 +6,7 @@ class Renderer : public Fl_Gl_Window, public AbstractEventListener, public Singl
   Renderer(int x, int y, int w, int h, const char *label = 0);
   ~Renderer();
   void init_renderer_independent_objects();
-  int handle(boost::shared_ptr<AbstractEvent>& ae);
+  int handle(std::tr1::shared_ptr<AbstractEvent>& ae);
 
  private:
   void draw();

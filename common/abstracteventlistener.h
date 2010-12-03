@@ -6,5 +6,5 @@ struct AbstractEventListener
 {
   AbstractEventListener() {}
   virtual ~AbstractEventListener() {}
-  virtual int handle(boost::shared_ptr<AbstractEvent> &ae) = 0;
+  virtual int handle(std::tr1::shared_ptr<AbstractEvent> &ae) = 0;
 };

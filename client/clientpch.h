@@ -47,5 +47,5 @@
 #endif
 #include <assert.h>
 #include <vector>
-#include <boost/shared_ptr.hpp>
+#include <tr1/memory>
 #include "commonapi.h"
