@@ -41,7 +41,7 @@
 #if defined(WIN32)
 #include <GL/glu.h>
 #elif defined(__APPLE__)
-#include <GL/glu.h>
+#include <OpenGL/glu.h>
 #else
 #include <GL/glu.h>
 #endif
