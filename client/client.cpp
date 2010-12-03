@@ -18,7 +18,9 @@ const static int widget_y_gap = 10;
 
 int main(int argc, char *argv[])
 {
-  const std::string version_str(std::string("Built with common ") + std::string(CommonVersionString()));
+  std::string version_str("Built with common ");
+  std::string version(CommonVersionString());
+  version_str += version;
   Canvas *window = new Canvas(win_width, win_height);
   int wx = margin, wy = margin;
   int width = win_width - 2*margin;

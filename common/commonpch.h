@@ -3,4 +3,8 @@
 #include "macro.h"
 #include <string>
 #include <vector>
-#include <tr1/memory>
+#ifdef WIN32
+  #include <memory>
+#else
+  #include <tr1/memory>
+#endif

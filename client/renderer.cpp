@@ -97,8 +97,11 @@ void Renderer::init_renderer_independent_objects()
 
 int Renderer::handle(std::tr1::shared_ptr<AbstractEvent>& ae)
 {
-  if (strcmp(ae->GetType().c_str(), "redraw_renderer") == 0)
+  if (strcmp(ae->GetType().c_str(), "redraw_renderer") == 0) {
     redraw();
+    return 1;
+  }
+  return 0;
 }
 
 void Renderer::draw()

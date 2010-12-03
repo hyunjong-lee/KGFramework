@@ -47,5 +47,9 @@
 #endif
 #include <assert.h>
 #include <vector>
+#ifdef WIN32
+#include <memory>
+#else
 #include <tr1/memory>
+#endif
 #include "commonapi.h"
