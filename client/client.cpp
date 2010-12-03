@@ -14,10 +14,10 @@ const static int margin = 10;
 const static int hor_box_height = 20;
 const static int widget_x_gap = 10;
 const static int widget_y_gap = 10;
-const static std::string version_str("Built with common " + std::string(CommonVersionString()));
 
 int main(int argc, char *argv[])
 {
+  const std::string version_str(std::string("Built with common ") + std::string(CommonVersionString()));
   Canvas *window = new Canvas(win_width, win_height);
   int wx = margin, wy = margin;
   int width = win_width - 2*margin;
@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
   wy += height + widget_y_gap;
   height = 300;
   Renderer *ren = new Renderer(wx, wy, width, height);
+  ren->init_renderer_independent_objects();
   //box->labeltype(FL_SHADOW_LABEL);
   window->end();
   window->show(argc, argv);

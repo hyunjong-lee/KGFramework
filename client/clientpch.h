@@ -35,9 +35,11 @@
 //#include <malloc.h>
 #include <memory.h>
 
-
+#include <stdio.h>
+#include <stdlib.h>
 #include <iostream>
 #include <GL/glu.h>
+#include <assert.h>
 // TODO: reference additional headers your program requires here
 
 #include "commonapi.h"
