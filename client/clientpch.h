@@ -38,7 +38,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#if defined(WIN32)
 #include <GL/glu.h>
+#elif defined(__APPLE__)
+#include <GL/glu.h>
+#else
+#include <GL/glu.h>
+#endif
 #include <assert.h>
 // TODO: reference additional headers your program requires here
 
