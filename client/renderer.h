@@ -20,5 +20,11 @@ class Renderer : public Fl_Gl_Window, public AbstractEventListener, public Singl
   GLuint ground_tex;
   GLuint ground_tex2;
   GLUquadric *quadric;
+
+  ArnViewportData avd;
+  ArnSceneGraphPtr scene_graph;
+private:
+  void draw_cone_and_ground();
+  void initialize_arangl_stuff();
 };
 

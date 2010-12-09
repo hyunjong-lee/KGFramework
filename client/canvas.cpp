@@ -1,3 +1,4 @@
+#include "clientpch.h"
 #include "canvas.h"
 
 

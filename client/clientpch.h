@@ -48,8 +48,21 @@
 #include <assert.h>
 #include <vector>
 #ifdef WIN32
-#include <memory>
+  #include <memory>
 #else
-#include <tr1/memory>
+  #include <tr1/memory>
 #endif
 #include "commonapi.h"
+
+//
+// Aran
+//
+#include "AranApi.h"
+#include "VideoManGl.h"
+#include "AranGl.h"
+#include "ArnTextureGl.h"
+#include "glext.h"
+#include "ArnGlExt.h"
+#include "ArnPlane.h"
+#include "ArnBone.h"
+#include "ArnLight.h"

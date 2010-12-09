@@ -1,6 +1,9 @@
 #pragma once
 #include <stdexcept>
 
+#ifndef SINGLETON_CLASS_DEFINED
+#define SINGLETON_CLASS_DEFINED
+
 template <typename T> class Singleton
 {
 	static T* s_instance;
@@ -31,3 +34,5 @@ public:
 
 #define IMPLEMENT_SINGLETON(type)	\
 	template<> type* Singleton<type>::s_instance	= 0;
+
+#endif // #ifndef SINGLETON_CLASS_DEFINED
