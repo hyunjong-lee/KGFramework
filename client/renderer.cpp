@@ -114,6 +114,7 @@ Renderer::Renderer(int x, int y, int w, int h, const char *label)
 : Fl_Gl_Window(x, y, w, h, label)
 , ground_tex(0)
 , ground_tex2(0)
+, client_(0)
 {
   eye[0] = 0;
   eye[1] = -100;
@@ -187,8 +188,10 @@ void Renderer::draw()
     ArnConfigureLightGl(0, activeLight);
   }
 
-  //draw_cone_and_ground();
-  ArnSceneGraphRenderGl(scene_graph.get(), true);
+  update_hero_pos();
+
+  draw_cone_and_ground();
+  //ArnSceneGraphRenderGl(scene_graph.get(), true);
 }
 
 void Renderer::draw_cone_and_ground() {
@@ -203,12 +206,24 @@ void Renderer::draw_cone_and_ground() {
   }
   glEnd();
 
+
   glPushMatrix();
   const Car &car = Car::getSingleton();
   glTranslated(car.get_pos()[0], car.get_pos()[1], car.get_pos()[2]);
   glBindTexture( GL_TEXTURE_2D, ground_tex2 );
   gluCylinder(quadric, 0.1, 0, 0.3, 32, 32);
   glPopMatrix();
+
+  for (int i = 0; i < client_->get_client_counts(); ++i) {
+    if (i != client_->getId()) {
+      const double *const p = client_->get_client_point(i);
+      glPushMatrix();
+      glTranslated(p[0], p[1], p[2]);
+      glBindTexture( GL_TEXTURE_2D, ground_tex2 );
+      gluCylinder(quadric, 0.1, 0, 0.3, 32, 32);
+      glPopMatrix();
+    }
+  }
 }
 
 void Renderer::resize(int X,int Y,int W,int H) {
@@ -246,4 +261,14 @@ void Renderer::initialize_arangl_stuff()
 void Renderer::init_clients_position_data( ClientCore* client )
 {
     client_ = client;
+}
+
+void Renderer::update_hero_pos()
+{
+  ArnMesh *m = reinterpret_cast<ArnMesh *>(scene_graph->getSceneRoot()->findFirstNodeOfType(NDT_RT_MESH));
+  if (m) {
+    const Car &car = Car::getSingleton();
+    m->setLocalXform_Trans(ArnVec3(car.get_pos()[0], car.get_pos()[1], car.get_pos()[2]));
+    m->recalcLocalXform();
+  }
 }

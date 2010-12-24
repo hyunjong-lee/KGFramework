@@ -31,6 +31,8 @@ public:
     {
         return id_;
     }
+    unsigned int get_client_counts() const { return client_counts_; }
+    const double *const get_client_point(int id) const { return client_points_[id]; }
 
 private:
     void handle_connect(const boost::system::error_code& error,
@@ -198,6 +200,7 @@ private:
 
     unsigned int client_counts_;
     double client_points_[USER_COUNTER_MAX][POINT_DIMENSION];
+    
     unsigned int id_;
 
 private:

@@ -10,12 +10,12 @@ class Renderer : public Fl_Gl_Window, public AbstractEventListener, public Singl
   void init_renderer_independent_objects();
   int handle(boost::shared_ptr<AbstractEvent>& ae);
   void init_clients_position_data(ClientCore* client);
-
+  ClientCore *get_client() const { return client_; }
  private:
   void draw();
   //int handle(int event);
   void resize(int,int,int,int);
-
+  void update_hero_pos();
   double eye[3];
   double center[3];
   double up[3];

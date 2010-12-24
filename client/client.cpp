@@ -29,10 +29,8 @@ void write_position(const boost::system::error_code& e, boost::asio::deadline_ti
     )
     );
   
-  std::vector<double> pos;
-  pos.push_back((rand()%10000) / 0.578);
-  pos.push_back((rand()%10000) / 0.789);
-  pos.push_back((rand()%10000) / 0.124);
+  const Car &car = Car::getSingleton();
+  std::vector<double> pos(car.get_pos());
 
   client->write(pos);
 
@@ -136,6 +134,9 @@ static int do_main(int argc, char *argv[])
       window->show();
 
       std::tr1::shared_ptr<Car> car(new Car());
+
+      Renderer::getSingleton().init_clients_position_data(&client);
+
       fltk_res = Fl::run();
     }
 
