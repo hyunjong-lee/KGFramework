@@ -9,6 +9,7 @@ character.cpp
 commonapi.cpp
 actor.cpp
 abstracteventlistener.cpp
+kgfprocess.cpp
 )
 
 set(COMMON_HEADERS
@@ -19,6 +20,7 @@ macro.h
 commonapi.h
 actor.h
 abstracteventlistener.cpp
+kgfprocess.h
 )
 
 SET(CMAKE_OSX_ARCHITECTURES i386)

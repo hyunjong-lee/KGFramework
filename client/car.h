@@ -6,6 +6,6 @@ class Car : public Character, public AbstractEventListener, public Singleton<Car
  public:
   Car();
   ~Car();
-  int handle(std::tr1::shared_ptr<AbstractEvent> &ae);
+  int handle(boost::shared_ptr<AbstractEvent> &ae);
 };
 

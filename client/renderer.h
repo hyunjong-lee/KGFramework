@@ -1,12 +1,15 @@
 #pragma once
 
+#include "client.h"
+
 class Renderer : public Fl_Gl_Window, public AbstractEventListener, public Singleton<Renderer>
 {
  public:
   Renderer(int x, int y, int w, int h, const char *label = 0);
   ~Renderer();
   void init_renderer_independent_objects();
-  int handle(std::tr1::shared_ptr<AbstractEvent>& ae);
+  int handle(boost::shared_ptr<AbstractEvent>& ae);
+  void init_clients_position_data(Client* client);
 
  private:
   void draw();
@@ -20,5 +23,8 @@ class Renderer : public Fl_Gl_Window, public AbstractEventListener, public Singl
   GLuint ground_tex;
   GLuint ground_tex2;
   GLUquadric *quadric;
+
+  // client
+  Client* client_;
 };
 

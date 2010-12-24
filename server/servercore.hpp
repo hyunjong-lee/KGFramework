@@ -13,8 +13,8 @@
 #include <boost/asio.hpp>
 #include <boost/unordered_map.hpp>
 
-#include "server_interface.h"
-#include "client_handler.hpp"
+#include "serverinterface.hpp"
+#include "clienthandler.hpp"
 
 using namespace boost::asio;
 using namespace boost::asio::ip;
@@ -28,31 +28,31 @@ public:
         memset(user_positions_, 0, sizeof(double) * USER_COUNTER_MAX * POINT_DIMENSION);
         memset(client_list_, 0, sizeof(ClientHandler *) * USER_COUNTER_MAX);
 
-        client_list_[user_counter_] = new ClientHandler(io_service_, user_counter_, this);
-        acceptor_.async_accept(client_list_[user_counter_]->socket(),
+        client_list_[user_count_] = new ClientHandler(io_service_, user_count_, this);
+        acceptor_.async_accept(client_list_[user_count_]->socket(),
             boost::bind(
-                &Server::handle_accept,
-                this,
-                boost::asio::placeholders::error
+            &Server::handle_accept,
+            this,
+            boost::asio::placeholders::error
             )
-        );
+            );
     }
 
     void handle_accept(const boost::system::error_code& error)
     {
         if (!error)
         {
-            client_list_[user_counter_]->start();
-            user_counter_++;
+            client_list_[user_count_]->start();
+            user_count_++;
 
-            client_list_[user_counter_] = new ClientHandler(io_service_, user_counter_, this);
-            acceptor_.async_accept(client_list_[user_counter_]->socket(),
+            client_list_[user_count_] = new ClientHandler(io_service_, user_count_, this);
+            acceptor_.async_accept(client_list_[user_count_]->socket(),
                 boost::bind(
-                    &Server::handle_accept,
-                    this,
-                    boost::asio::placeholders::error
+                &Server::handle_accept,
+                this,
+                boost::asio::placeholders::error
                 )
-            );
+                );
         }
     }
 
@@ -68,11 +68,11 @@ public:
 
     void deliver_to_clients()
     {
-        int size = user_counter_ * POINT_DIMENSION * sizeof(double);
+        int size = user_count_ * POINT_DIMENSION * sizeof(double);
         static BYTE *packetData = new BYTE[1000];
 
         int tdx = 0;
-        for(int idx = 0; idx < user_counter_; idx++)
+        for(int idx = 0; idx < user_count_; idx++)
         {
             std::cout << "User<" << idx << "> START" << std::endl;
 
@@ -83,11 +83,11 @@ public:
                 memcpy(packetData + tdx, &(user_positions_[idx][kdx]), sizeof(double));
                 tdx += sizeof(double);
             }
-            
+
             std::cout << "User<" << idx << "> END" << std::endl;
         }
 
-        for(int idx = 0; idx < user_counter_; idx++)
+        for(int idx = 0; idx < user_count_; idx++)
         {
             if(client_list_[idx] != NULL)
                 client_list_[idx]->deliver(packetData, size);
@@ -96,15 +96,15 @@ public:
 
     void leave_client(unsigned int playerId)
     {
-		ClientHandler *pClientHandler = client_list_[playerId];
+        ClientHandler *pClientHandler = client_list_[playerId];
         client_list_[playerId] = NULL;
 
-		//delete pClientHandler;
+        //delete pClientHandler;
     }
 
     unsigned int get_user_count()
     {
-        return user_counter_;
+        return user_count_;
     }
 
 private:
@@ -114,12 +114,10 @@ private:
     enum{USER_COUNTER_MAX = 100};
     enum{POINT_DIMENSION = 3};
 
-    static unsigned int user_counter_;
+    static unsigned int user_count_;
     ClientHandler* client_list_[USER_COUNTER_MAX];
 
     double user_positions_[USER_COUNTER_MAX][POINT_DIMENSION];
 };
-
-unsigned int Server::user_counter_ = 0;
 
 typedef boost::shared_ptr<Server> server_ptr;

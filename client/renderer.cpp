@@ -95,7 +95,7 @@ void Renderer::init_renderer_independent_objects()
 {
 }
 
-int Renderer::handle(std::tr1::shared_ptr<AbstractEvent>& ae)
+int Renderer::handle(boost::shared_ptr<AbstractEvent>& ae)
 {
   if (strcmp(ae->GetType().c_str(), "redraw_renderer") == 0) {
     redraw();
@@ -160,4 +160,9 @@ void Renderer::resize(int X,int Y,int W,int H) {
   glLoadIdentity();
   gluLookAt(eye[0], eye[1], eye[2], center[0], center[1], center[2], up[0], up[1], up[2]);
   redraw();
+}
+
+void Renderer::init_clients_position_data( Client* client )
+{
+    client_ = client;
 }

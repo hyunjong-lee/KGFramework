@@ -17,7 +17,7 @@
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
 
-#include "server_interface.h"
+#include "serverinterface.hpp"
 
 using namespace boost::asio::ip;
 
@@ -45,11 +45,11 @@ public:
         boost::asio::async_read(socket_,
             boost::asio::buffer(header_, HEADER_SIZE),
             boost::bind(
-                &ClientHandler::handle_read_header,
-                this,
-                boost::asio::placeholders::error
+            &ClientHandler::handle_read_header,
+            this,
+            boost::asio::placeholders::error
             )
-        );
+            );
     }
 
     void handle_read_header(const boost::system::error_code& error)
@@ -59,11 +59,11 @@ public:
             boost::asio::async_read(socket_,
                 boost::asio::buffer(payload_, payload_length_),
                 boost::bind(
-                    &ClientHandler::handle_read_body,
-                    this,
-                    boost::asio::placeholders::error
+                &ClientHandler::handle_read_body,
+                this,
+                boost::asio::placeholders::error
                 )
-            );
+                );
         }
         else
         {
@@ -92,11 +92,11 @@ public:
             boost::asio::async_read(socket_,
                 boost::asio::buffer(header_, HEADER_SIZE),
                 boost::bind(
-                    &ClientHandler::handle_read_header,
-                    this,
-                    boost::asio::placeholders::error
+                &ClientHandler::handle_read_header,
+                this,
+                boost::asio::placeholders::error
                 )
-            );
+                );
         }
         else
         {
@@ -114,17 +114,17 @@ public:
         boost::asio::async_write(
             socket_,
             boost::asio::buffer(
-                header_,
-                HEADER_SIZE
+            header_,
+            HEADER_SIZE
             ),
             boost::bind(
-                &ClientHandler::deliver_payload,
-                this,
-				data,
-				size,
-                boost::asio::placeholders::error
+            &ClientHandler::deliver_payload,
+            this,
+            data,
+            size,
+            boost::asio::placeholders::error
             )
-        );
+            );
 
         //// write payload
         //boost::asio::async_write(
@@ -144,34 +144,34 @@ public:
     void deliver_payload(const BYTE* data, const int &size, const boost::system::error_code& error)
     {
         if(!error)
-		{
-			// write payload
-			boost::asio::async_write(
-				socket_,
-				boost::asio::buffer(
-					data,
-					size
-				),
-				boost::bind(
-					&ClientHandler::handle_write,
-					this,
-					boost::asio::placeholders::error
-				)
-			);
-		}
-		else
-		{
-			server_interface_->leave_client(id_);
-		}
+        {
+            // write payload
+            boost::asio::async_write(
+                socket_,
+                boost::asio::buffer(
+                data,
+                size
+                ),
+                boost::bind(
+                &ClientHandler::handle_write,
+                this,
+                boost::asio::placeholders::error
+                )
+                );
+        }
+        else
+        {
+            server_interface_->leave_client(id_);
+        }
     }
 
-	void handle_write(const boost::system::error_code& error)
-	{
-		if(error)
-		{
-			server_interface_->leave_client(id_);
-		}
-	}
+    void handle_write(const boost::system::error_code& error)
+    {
+        if(error)
+        {
+            server_interface_->leave_client(id_);
+        }
+    }
 
 
 private:

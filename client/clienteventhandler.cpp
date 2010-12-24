@@ -13,7 +13,7 @@ ClientEventHandler::~ClientEventHandler(void)
 {
 }
 
-void shoot_event ( std::tr1::shared_ptr<AbstractEvent> ae, AbstractEventListener *h ) {
+void shoot_event ( boost::shared_ptr<AbstractEvent> ae, AbstractEventListener *h ) {
   h->handle(ae);
 }
 
