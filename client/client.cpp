@@ -107,6 +107,7 @@ int main(int argc, char *argv[])
             height = 300;
             Renderer *ren = new Renderer(wx, wy, width, height);
             ren->init_renderer_independent_objects();
+	    ren->init_clients_position_data(client);
             //box->labeltype(FL_SHADOW_LABEL);
             window->end();
             window->show(argc, argv);
