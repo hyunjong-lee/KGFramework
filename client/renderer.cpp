@@ -243,7 +243,7 @@ void Renderer::initialize_arangl_stuff()
   scene_graph = sg;
 }
 
-void Renderer::init_clients_position_data( Client* client )
+void Renderer::init_clients_position_data( ClientCore* client )
 {
     client_ = client;
 }

@@ -8,19 +8,42 @@
 #ifdef WIN32
 
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
-// Windows Header Files:
-#include <windows.h>
-#include <tchar.h>
+  // Windows Header Files:
+  #include <windows.h>
+  #include <tchar.h>
 #endif // #ifdef WIN32
 
 // C RunTime Header Files
+#include <stdio.h>
 #include <stdlib.h>
 //#include <malloc.h>
 #include <memory.h>
-
-#include <stdio.h>
-#include <stdlib.h>
+#include <assert.h>
+// C++ Runtime
 #include <iostream>
+#include <vector>
+#include <iostream>
+#include <ctime>
+#include <algorithm>
+#include <cstdlib>
+#include <deque>
+#include <list>
+#include <set>
+#ifdef WIN32
+  #include <memory>
+#else
+  #include <tr1/memory>
+#endif
+
+// Boost
+#include <boost/thread.hpp>
+#include <boost/bind.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/enable_shared_from_this.hpp>
+#include <boost/asio.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+
+// OpenGL Utility
 #if defined(WIN32)
 #include <GL/glu.h>
 #elif defined(__APPLE__)
@@ -28,13 +51,8 @@
 #else
 #include <GL/glu.h>
 #endif
-#include <assert.h>
-#include <vector>
-#ifdef WIN32
-  #include <memory>
-#else
-  #include <tr1/memory>
-#endif
+
+// KGF common api
 #include "commonapi.h"
 
 //
