@@ -1,9 +1,10 @@
 #pragma once
-class Process
+
+class KGCOMMON_API KGFProcess
 {
 public:
-	Process(void);
-	~Process(void);
+	KGFProcess(void);
+	~KGFProcess(void);
 
 	virtual int run(int argc, char *argv[]) = 0;
 };

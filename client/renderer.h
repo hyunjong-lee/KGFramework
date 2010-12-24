@@ -1,12 +1,15 @@
 #pragma once
 
+#include "client.h"
+
 class Renderer : public Fl_Gl_Window, public AbstractEventListener, public Singleton<Renderer>
 {
  public:
   Renderer(int x, int y, int w, int h, const char *label = 0);
   ~Renderer();
   void init_renderer_independent_objects();
-  int handle(std::tr1::shared_ptr<AbstractEvent>& ae);
+  int handle(boost::shared_ptr<AbstractEvent>& ae);
+  void init_clients_position_data(Client* client);
 
  private:
   void draw();
@@ -26,5 +29,8 @@ class Renderer : public Fl_Gl_Window, public AbstractEventListener, public Singl
 private:
   void draw_cone_and_ground();
   void initialize_arangl_stuff();
+
+  // client
+  Client* client_;
 };
 

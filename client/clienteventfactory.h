@@ -20,8 +20,8 @@ public:
 	// define variables
 
 	// define functions
-	static std::tr1::shared_ptr<AbstractEvent> MakeCarEvent(CarMoveDirection cmd, double amount);
-	static std::tr1::shared_ptr<AbstractEvent> MakeEvent(const std::string &type);
+	static boost::shared_ptr<AbstractEvent> MakeCarEvent(CarMoveDirection cmd, double amount);
+	static boost::shared_ptr<AbstractEvent> MakeEvent(const std::string &type);
 private:
 	// define constants
 

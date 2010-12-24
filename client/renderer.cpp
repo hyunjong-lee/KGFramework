@@ -137,7 +137,7 @@ void Renderer::init_renderer_independent_objects()
 {
 }
 
-int Renderer::handle(std::tr1::shared_ptr<AbstractEvent>& ae)
+int Renderer::handle(boost::shared_ptr<AbstractEvent>& ae)
 {
   if (strcmp(ae->GetType().c_str(), "redraw_renderer") == 0) {
     redraw();
@@ -241,4 +241,9 @@ void Renderer::initialize_arangl_stuff()
   std::cout << "   Scene file " << scene_name << "(prefix omitted) loaded successfully." << std::endl;
   ArnInitializeRenderableObjectsGl(sg.get());
   scene_graph = sg;
+}
+
+void Renderer::init_clients_position_data( Client* client )
+{
+    client_ = client;
 }
