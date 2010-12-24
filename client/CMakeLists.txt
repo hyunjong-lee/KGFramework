@@ -21,6 +21,7 @@ clienteventfactory.h
 clienteventdispatcher.h
 clienteventhandler.h
 renderer.h
+clientcore.hpp
 car.cpp
 )
 

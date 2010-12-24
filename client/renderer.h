@@ -1,6 +1,6 @@
 #pragma once
 
-#include "client.h"
+#include "clientcore.hpp"
 
 class Renderer : public Fl_Gl_Window, public AbstractEventListener, public Singleton<Renderer>
 {
@@ -9,7 +9,7 @@ class Renderer : public Fl_Gl_Window, public AbstractEventListener, public Singl
   ~Renderer();
   void init_renderer_independent_objects();
   int handle(boost::shared_ptr<AbstractEvent>& ae);
-  void init_clients_position_data(Client* client);
+  void init_clients_position_data(ClientCore* client);
 
  private:
   void draw();
@@ -25,6 +25,6 @@ class Renderer : public Fl_Gl_Window, public AbstractEventListener, public Singl
   GLUquadric *quadric;
 
   // client
-  Client* client_;
+  ClientCore* client_;
 };
 

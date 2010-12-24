@@ -8,6 +8,7 @@
 #include "renderer.h"
 #include "canvas.h"
 #include "car.h"
+#include "clientcore.hpp"
 
 #include <iostream>
 #include <vector>
@@ -22,7 +23,7 @@ const static int hor_box_height = 20;
 const static int widget_x_gap = 10;
 const static int widget_y_gap = 10;
 
-void write_position(const boost::system::error_code& e, boost::asio::deadline_timer* t, Client* client)
+void write_position(const boost::system::error_code& e, boost::asio::deadline_timer* t, ClientCore* client)
 {
     t->expires_at(t->expires_at() + boost::posix_time::seconds(1));
     t->async_wait(
@@ -67,7 +68,7 @@ int main(int argc, char *argv[])
         tcp::resolver::query query(argv[1], argv[2]);
         tcp::resolver::iterator iterator = resolver.resolve(query);
 
-        Client client(io_service, iterator);
+        ClientCore client(io_service, iterator);
         boost::thread io_thread(boost::bind(&boost::asio::io_service::run, &io_service));
 
         boost::asio::io_service io_service_timer;
@@ -107,7 +108,7 @@ int main(int argc, char *argv[])
             height = 300;
             Renderer *ren = new Renderer(wx, wy, width, height);
             ren->init_renderer_independent_objects();
-	    ren->init_clients_position_data(client);
+	        ren->init_clients_position_data(&client);
             //box->labeltype(FL_SHADOW_LABEL);
             window->end();
             window->show(argc, argv);

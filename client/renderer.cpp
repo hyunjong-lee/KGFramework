@@ -162,7 +162,7 @@ void Renderer::resize(int X,int Y,int W,int H) {
   redraw();
 }
 
-void Renderer::init_clients_position_data( Client* client )
+void Renderer::init_clients_position_data( ClientCore* client )
 {
     client_ = client;
 }
