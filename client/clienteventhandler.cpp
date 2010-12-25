@@ -22,9 +22,9 @@ int ClientEventHandler::handle( int event )
 {
   static const double diff = 0.01;
 
-  boost::system::error_code b_err;
-  boost::asio::io_service io_service_timer;
-  boost::asio::deadline_timer timer(io_service_timer, boost::posix_time::seconds(1));
+  //boost::system::error_code b_err;
+  //boost::asio::io_service io_service_timer;
+  //boost::asio::deadline_timer timer(io_service_timer, boost::posix_time::seconds(1));
   ClientCore *cc = Renderer::getSingleton().get_client();
   switch(event)
   {
@@ -36,28 +36,83 @@ int ClientEventHandler::handle( int event )
       shoot_event ( ClientEventFactory::MakeCarEvent( CMD_LEFT, diff ), &Car::getSingleton() );
       shoot_event ( ClientEventFactory::MakeEvent("redraw_renderer"), &Renderer::getSingleton() );
       if (cc)
-        write_position(b_err, &timer, cc);
+	  {
+		  const Car &car = Car::getSingleton();
+		  std::vector<double> pos(car.get_pos());
+
+		  cc->write(pos);
+
+		  std::cout << "===========" << std::endl;
+		  std::cout << "Client DATA" << std::endl;
+		  printf("%.08f\n", pos[0]);
+		  printf("%.08f\n", pos[1]);
+		  printf("%.08f\n", pos[2]);
+		  std::cout << "===========" << std::endl;
+		  std::cout << std::endl;
+	  }
       return 1;
     case FL_Right:
       std::cout << "Right down" << std::endl;
       shoot_event ( ClientEventFactory::MakeCarEvent( CMD_RIGHT, diff ), &Car::getSingleton() );
       shoot_event ( ClientEventFactory::MakeEvent("redraw_renderer"), &Renderer::getSingleton() );
       if (cc)
-        write_position(b_err, &timer, cc);
+	  {
+		  const Car &car = Car::getSingleton();
+		  std::vector<double> pos(car.get_pos());
+
+		  cc->write(pos);
+
+		  std::cout << "===========" << std::endl;
+		  std::cout << "Client DATA" << std::endl;
+		  printf("%.08f\n", pos[0]);
+		  printf("%.08f\n", pos[1]);
+		  printf("%.08f\n", pos[2]);
+		  std::cout << "===========" << std::endl;
+		  std::cout << std::endl;
+	  }
+
       return 1;
     case FL_Up:
       std::cout << "Up down" << std::endl;
       shoot_event ( ClientEventFactory::MakeCarEvent( CMD_UP, diff ), &Car::getSingleton() );
       shoot_event ( ClientEventFactory::MakeEvent("redraw_renderer"), &Renderer::getSingleton() );
       if (cc)
-        write_position(b_err, &timer, cc);
+	  {
+		  const Car &car = Car::getSingleton();
+		  std::vector<double> pos(car.get_pos());
+
+		  cc->write(pos);
+
+		  std::cout << "===========" << std::endl;
+		  std::cout << "Client DATA" << std::endl;
+		  printf("%.08f\n", pos[0]);
+		  printf("%.08f\n", pos[1]);
+		  printf("%.08f\n", pos[2]);
+		  std::cout << "===========" << std::endl;
+		  std::cout << std::endl;
+	  }
+
       return 1;
     case FL_Down:
       std::cout << "Down down" << std::endl;
       shoot_event ( ClientEventFactory::MakeCarEvent( CMD_DOWN, diff ), &Car::getSingleton() );
       shoot_event ( ClientEventFactory::MakeEvent("redraw_renderer"), &Renderer::getSingleton() );
       if (cc)
-        write_position(b_err, &timer, cc);
+	  {
+		  const Car &car = Car::getSingleton();
+		  std::vector<double> pos(car.get_pos());
+
+		  cc->write(pos);
+
+		  std::cout << "===========" << std::endl;
+		  std::cout << "Client DATA" << std::endl;
+		  printf("%.08f\n", pos[0]);
+		  printf("%.08f\n", pos[1]);
+		  printf("%.08f\n", pos[2]);
+		  std::cout << "===========" << std::endl;
+		  std::cout << std::endl;
+	  }
+
       return 1;
     default:
       std::cout << *reinterpret_cast<char *>(&key) << std::endl;
