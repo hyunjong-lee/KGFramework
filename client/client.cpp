@@ -83,18 +83,18 @@ static int do_main(int argc, char *argv[])
     ClientCore client(io_service, iterator);
     boost::thread io_thread(boost::bind(&boost::asio::io_service::run, &io_service));
 
-    //boost::asio::io_service io_service_timer;
-    //boost::asio::deadline_timer timer(io_service_timer, boost::posix_time::seconds(1));
-    //timer.async_wait(
-    //  boost::bind(
-    //  write_position,
-    //  boost::asio::placeholders::error,
-    //  &timer,
-    //  &client
-    //  )
-    //  );
+    boost::asio::io_service io_service_timer;
+    boost::asio::deadline_timer timer(io_service_timer, boost::posix_time::seconds(1));
+    timer.async_wait(
+      boost::bind(
+      write_position,
+      boost::asio::placeholders::error,
+      &timer,
+      &client
+      )
+    );
     
-    //boost::thread io_thread_timer(boost::bind(&boost::asio::io_service::run, &io_service_timer));
+    boost::thread io_thread_timer(boost::bind(&boost::asio::io_service::run, &io_service_timer));
 
     
     // start drawing

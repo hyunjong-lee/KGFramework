@@ -35,7 +35,7 @@ int ClientEventHandler::handle( int event )
       std::cout << "Left down" << std::endl;
       shoot_event ( ClientEventFactory::MakeCarEvent( CMD_LEFT, diff ), &Car::getSingleton() );
       shoot_event ( ClientEventFactory::MakeEvent("redraw_renderer"), &Renderer::getSingleton() );
-      if (cc)
+      /*if (cc)
 	  {
 		  const Car &car = Car::getSingleton();
 		  std::vector<double> pos(car.get_pos());
@@ -49,13 +49,13 @@ int ClientEventHandler::handle( int event )
 		  printf("%.08f\n", pos[2]);
 		  std::cout << "===========" << std::endl;
 		  std::cout << std::endl;
-	  }
+	  }*/
       return 1;
     case FL_Right:
       std::cout << "Right down" << std::endl;
       shoot_event ( ClientEventFactory::MakeCarEvent( CMD_RIGHT, diff ), &Car::getSingleton() );
       shoot_event ( ClientEventFactory::MakeEvent("redraw_renderer"), &Renderer::getSingleton() );
-      if (cc)
+      /*if (cc)
 	  {
 		  const Car &car = Car::getSingleton();
 		  std::vector<double> pos(car.get_pos());
@@ -69,14 +69,14 @@ int ClientEventHandler::handle( int event )
 		  printf("%.08f\n", pos[2]);
 		  std::cout << "===========" << std::endl;
 		  std::cout << std::endl;
-	  }
+	  }*/
 
       return 1;
     case FL_Up:
       std::cout << "Up down" << std::endl;
       shoot_event ( ClientEventFactory::MakeCarEvent( CMD_UP, diff ), &Car::getSingleton() );
       shoot_event ( ClientEventFactory::MakeEvent("redraw_renderer"), &Renderer::getSingleton() );
-      if (cc)
+      /*if (cc)
 	  {
 		  const Car &car = Car::getSingleton();
 		  std::vector<double> pos(car.get_pos());
@@ -90,14 +90,14 @@ int ClientEventHandler::handle( int event )
 		  printf("%.08f\n", pos[2]);
 		  std::cout << "===========" << std::endl;
 		  std::cout << std::endl;
-	  }
+	  }*/
 
       return 1;
     case FL_Down:
       std::cout << "Down down" << std::endl;
       shoot_event ( ClientEventFactory::MakeCarEvent( CMD_DOWN, diff ), &Car::getSingleton() );
       shoot_event ( ClientEventFactory::MakeEvent("redraw_renderer"), &Renderer::getSingleton() );
-      if (cc)
+      /*if (cc)
 	  {
 		  const Car &car = Car::getSingleton();
 		  std::vector<double> pos(car.get_pos());
@@ -111,7 +111,7 @@ int ClientEventHandler::handle( int event )
 		  printf("%.08f\n", pos[2]);
 		  std::cout << "===========" << std::endl;
 		  std::cout << std::endl;
-	  }
+	  }*/
 
       return 1;
     default:
