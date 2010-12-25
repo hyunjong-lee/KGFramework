@@ -18,8 +18,15 @@ public:
 
     void write(const std::vector<double>& pos)
     {
+    	static isRunning = false;
+	if(isRunning) return;
+
+	isRunning = true;
+
         if(initialized_)
             io_service_.post(boost::bind(&ClientCore::do_write, this, pos));
+
+	isRunning = false;
     }
 
     void close()
