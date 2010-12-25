@@ -143,7 +143,7 @@ static int do_main(int argc, char *argv[])
     client.close();
     io_thread.join();
     
-    //io_thread_timer.join();
+    io_thread_timer.join();
   }
   catch (std::exception& e)
   {

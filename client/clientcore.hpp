@@ -18,7 +18,7 @@ public:
 
     void write(const std::vector<double>& pos)
     {
-    	static isRunning = false;
+    	static int isRunning = false;
 	if(isRunning) return;
 
 	isRunning = true;
