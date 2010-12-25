@@ -107,25 +107,25 @@ static int do_main(int argc, char *argv[])
       std::string version_str("Built with common ");
       std::string version(CommonVersionString());
       version_str += version;
-      std::tr1::shared_ptr<Canvas> window(new Canvas(win_width, win_height));
+      CanvasPtr window(new Canvas(win_width, win_height));
       int wx = margin, wy = margin;
       int width = win_width - 2*margin;
       int height = hor_box_height;
-      std::tr1::shared_ptr<Fl_Box> box(new Fl_Box(wx, wy, width, height, version_str.c_str()));
+      kgf_shared_ptr<Fl_Box> box(new Fl_Box(wx, wy, width, height, version_str.c_str()));
       box->box(FL_UP_BOX);
       box->labelsize(14);
       box->labelfont(FL_BOLD+FL_ITALIC);
       wx += 0;
       wy += height + widget_y_gap;
       //box->labeltype(FL_SHADOW_LABEL);
-      std::tr1::shared_ptr<Fl_Box> box2(new Fl_Box(wx, wy, width, height, "ahaha"));
+      kgf_shared_ptr<Fl_Box> box2(new Fl_Box(wx, wy, width, height, "ahaha"));
       box2->box(FL_UP_BOX);
       box2->labelsize(14);
       box2->labelfont(FL_BOLD+FL_ITALIC);
       wx += 0;
       wy += height + widget_y_gap;
       height = 300;
-      std::tr1::shared_ptr<Renderer> ren(new Renderer(wx, wy, width, height));
+      kgf_shared_ptr<Renderer> ren(new Renderer(wx, wy, width, height));
       ren->init_renderer_independent_objects();
       //box->labeltype(FL_SHADOW_LABEL);
       window->end();
@@ -133,7 +133,7 @@ static int do_main(int argc, char *argv[])
       //window->show(argc, argv);
       window->show();
 
-      std::tr1::shared_ptr<Car> car(new Car());
+      kgf_shared_ptr<Car> car(new Car());
 
       Renderer::getSingleton().init_clients_position_data(&client);
 

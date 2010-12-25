@@ -33,7 +33,6 @@ clienteventfactory.h
 clienteventdispatcher.h
 clienteventhandler.h
 renderer.h
-clientcore.hpp
 car.cpp
 )
 
@@ -54,6 +53,9 @@ endif (MSVC10)
 if (MSVC90)
   LINK_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../aran/lib/vc90)
 endif (MSVC90)
+if (MSVC80)
+  LINK_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../aran/lib/vc80)
+endif (MSVC80)
 
 ADD_EXECUTABLE(client ${CLIENT_SOURCES})
 

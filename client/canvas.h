@@ -21,4 +21,6 @@ public:
 
 };
 
+typedef kgf_shared_ptr<Canvas> CanvasPtr;
+
 #endif // KGCLIENT_KGCANVAS_H_
