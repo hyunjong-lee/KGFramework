@@ -175,9 +175,23 @@ void Renderer::draw()
   // Clear screen
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+  update_hero_pos();
+  //draw_scene_graph();
+
+  glDisable(GL_LIGHTING);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluPerspective(45, double(w()) / h(), 0.01, 1000);
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+  gluLookAt(0, 0, 2, 0, 0, 0, 0, 1, 0);
+
+  draw_cone_and_ground();
+}
+
+void Renderer::draw_scene_graph() {
   ArnCamera *activeCam = static_cast<ArnCamera *>(scene_graph->getSceneRoot()->findFirstNodeOfType(NDT_RT_CAMERA));
   ArnLight *activeLight = static_cast<ArnLight *>(scene_graph->getSceneRoot()->findFirstNodeOfType(NDT_RT_LIGHT));
-
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
   if (activeCam) {
@@ -187,11 +201,7 @@ void Renderer::draw()
   if (activeLight) {
     ArnConfigureLightGl(0, activeLight);
   }
-
-  update_hero_pos();
-
-  draw_cone_and_ground();
-  //ArnSceneGraphRenderGl(scene_graph.get(), true);
+  ArnSceneGraphRenderGl(scene_graph.get(), true);
 }
 
 void Renderer::draw_cone_and_ground() {

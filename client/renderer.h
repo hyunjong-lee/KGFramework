@@ -27,6 +27,7 @@ class Renderer : public Fl_Gl_Window, public AbstractEventListener, public Singl
   ArnViewportData avd;
   ArnSceneGraphPtr scene_graph;
 private:
+  void draw_scene_graph();
   void draw_cone_and_ground();
   void initialize_arangl_stuff();
 
